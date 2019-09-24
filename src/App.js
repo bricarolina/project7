@@ -10,26 +10,27 @@ import Photo from './components/Photo';
 import SearchBar from './components/SearchBar';
 import PageNotFound from './components/PageNotFound';
 
+
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cats: [],
-      dogs: [],
-      computers: [],
+      daisy: [],
+      cactus: [],
+      roses: [],
       input: [],
       loading: true
     };
   }
-
+//The first 24 pictures will be of flowers
   componentDidMount() {
-    this.mainSearch('cows', 'cows');
+    this.mainSearch('flowers', 'flowers');
   }
 
   mainSearch = (query, input) => {
     axios
       .get(
-        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=16&format=json&nojsoncallback=1`
+        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`
       )
       .then(response => {
         this.setState({
@@ -43,7 +44,7 @@ export default class App extends Component {
   };
 
   loading = () => this.state.loading;
-
+// routes to the 3 nav buttons and a general page when the first page loads
   render() {
     return (
       <BrowserRouter>
@@ -58,35 +59,39 @@ export default class App extends Component {
               <Route
                 exact
                 path="/"
-                render={() => <Photo data={this.state.cows} />}
+                render={() => <Photo data={this.state.flowers} />}
+                title={"flowers"}
+               
               />
               <Route
                 exact
-                path="/cats"
+                path="/daisy"
                 render={() => (
                   <Photo
-                    mainSearch={this.mainSearch('cats', 'cats')}
-                    data={this.state.cats}
+                    mainSearch={this.mainSearch('daisy', 'daisy')}
+                    data={this.state.daisy}
                   />
                 )}
               />
               <Route
                 exact
-                path="/dogs"
+                path="/cactus"
                 render={() => (
                   <Photo
-                    mainSearch={this.mainSearch('dogs', 'dogs')}
-                    data={this.state.dogs}
+                    mainSearch={this.mainSearch('cactus', 'cactus')}
+                    data={this.state.cactus}
+
                   />
                 )}
               />
               <Route
                 exact
-                path="/computers"
+                path="/roses"
                 render={() => (
                   <Photo
-                    mainSearch={this.mainSearch('computers', 'computers')}
-                    data={this.state.computers}
+                    mainSearch={this.mainSearch('roses', 'roses')}
+                    data={this.state.roses}
+                    title={"roses"}
                   />
                 )}
               />

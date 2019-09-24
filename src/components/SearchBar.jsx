@@ -27,7 +27,7 @@ class SearchBar extends Component {
           onChange={this.onSearchChange}
           name="search"
           ref={input => (this.query = input)}
-          placeholder="Type your search key"
+          placeholder="search"
           required
         />
         <button type="submit" className="search-button">
